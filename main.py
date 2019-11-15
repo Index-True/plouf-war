@@ -37,8 +37,8 @@ def scan(playerId, grids):
     for ship,status in scan.stats[playerId].items():
         if status:
             status = False
-            for col in grids[playerId]:
-                for cell in col:
+            for line in grids[playerId]:
+                for cell in line:
                     if cell == ship:
                         status = True
             if not status:
