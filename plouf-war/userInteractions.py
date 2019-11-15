@@ -13,7 +13,7 @@ def askCell(text):
 
     userInput = input(text)
 
-    while not userInput[0] in tab and not userInput[1:].isdigit() and not 1 <= int(userInput[1:]) <= 10:
+    while ( not userInput[0] in tab ) or ( not userInput[1:].isdigit() ) or ( not 1 <= int(userInput[1:]) <= 10) :
 
         userInput = input("Please enter values like A2 : ")
     
@@ -21,3 +21,7 @@ def askCell(text):
     line = int(userInput[1:])
     
     return line, col
+
+
+if __name__ == '__main__':
+    print(askCell("AskCell debug : "))
