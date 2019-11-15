@@ -11,7 +11,7 @@ def displayScreen(grid,playerID,mode) :
 
     if mode :
         disOut = [" ∙ "," o ","▒▒▒","▒▒▒","███","███","███","███","███"]
-    else
+    else :
         disOut = [" ∙ "," o ","▒▒▒"," x "," ∙ "," ∙ "," ∙ "," ∙ "," ∙ "]
     for i in range(10):
         ln = ""
