@@ -15,8 +15,9 @@ Variable grids : contient l'etat de la grille de jeu pour les deux joueurs
 pour acceder a la case B4 du joueur 1 on ecrit : grids[0][1][3]
                                                        |  |  |
                                                   joueur  |  |
-                                                     colone  |
-                                                         ligne
+                                                      ligne  |
+                                                        colone
+                                                         
 """
 
 
