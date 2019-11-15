@@ -1,16 +1,16 @@
 def askCell(text):
     tab = ["A","B","C","D","E","F","G","H","I","J"]
-    while not text[0] in tab and not text[1:].isdigit() and not 1 <= text[1:] <= 10:
 
-        text = input("Please enter values like A2 : ")
-    text = text[0]+', '+text[1:]
-    text = text.split(', ')
-    text[1]=int(text[1])
-    for i in range(len(tab)):
-        if text[0] == tab[i]:
-            text[0] = i
+    userInput = input(text)
 
-    return(text)
+    while not userInput[0] in tab and not userInput[1:].isdigit() and not 1 <= userInput[1:] <= 10:
+
+        userInput = input("Please enter values like A2 : ")
+    
+    col = tab.index(userInput[0])
+    line = userInput[1:]
+    
+    return line, col
 print(askCell("B8"))
 
 
