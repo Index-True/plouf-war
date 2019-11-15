@@ -2,7 +2,7 @@ def displayScreen(grid,playerID,mode) :
     """
     Input:
     gird = tableaux de donnés dans le tableau à trois dimensions
-    playerID = l'exact même que dans le main, id du joeur qui va regarder l'output
+    playerID = id du joueur dont on veut afficher l'ecran
     mode = boolean, True = le joueur regarde son tableau
                     False= le joueur regarde le tableau de son adversaire
     """
