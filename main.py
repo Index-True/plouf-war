@@ -56,3 +56,33 @@ scan.stats = [
         50: True, 40: True, 30: True, 31: True, 20: True
     } for i in range(2)
 ]
+
+def shoot(playerId, grids):
+    """
+    fonction qui demande a l'utilisateur où il veut tirer
+    # Parametres
+    playerId : Id du joueur qui tire ( int 0 ou 1)
+    grids : grilles d'etat de la partie
+    # Retourne
+    hasWon : bool , vrai si le joueur viens de gagner la partie faux sinon
+    """
+    target = 1 if playerId == 0 else 0
+    
+    while True:
+        line, col = askCell("Coordonnées du tir ? [A-J][1-10]")
+        if not grids[target][line][col] in [1,2,3]:
+            break
+        print("Vous avez déja tiré ici...")
+
+    if grids[target][line][col] == 0:
+        # tir dans l'eau
+        grids[target][line][col] = 1
+        return False
+    
+    grids[target][line][col] = 2
+    shipKilled, hasWon = scan(target,grids)
+
+    if shipKilled:
+        grids[target][line][col] = 3
+        
+    return hasWon
