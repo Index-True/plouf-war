@@ -12,6 +12,7 @@ def askCell(text):
     tab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
     userInput = input(text)
+    userInput = userInput.upper()
 
     while (not userInput[0] in tab) or (not userInput[1:].isdigit()) or (not 1 <= int(userInput[1:]) <= 10):
 
