@@ -22,6 +22,59 @@ def askCell(text):
     
     return line, col
 
+def isIntinRange(var,min,max) :
+    testFor = True
+    while testFor:
+        while not isinstance(var,int) :
+            try :        
+                var = int(input("Entrez un entier comprit entre " + str(min) + " et " + str(max) + ": "))
+            except ValueError :
+                var = "notInt"
+        if var < max+1 and var > min-1 and var%1 == 0:
+            testFor = False
+        else:
+            var = "notInt"    
+    return var
 
-if __name__ == '__main__':
-    print(askCell("AskCell debug : "))
+def placeBoat(girds,playerID):
+
+    testFor1 = False
+    testFor2 = False
+    boatsNames = ["Torpilleur","Contre-torpilleur","Contre-torpilleur","Croiseur","Porte-Avion"]
+    boatsIDs = [20,30,31,40,50]
+    boatsSizes = [2,3,3,4,5]
+    extrX = 0
+    extrY = 0
+
+    for i in range(5) :
+        while not testFor1 :
+            pointeurY,pointeurX = askCell("Entez la case du coin du " + boatsNames[i] + "sous la forme \"A1\"")
+            
+            while not testFor2 :
+
+                print("Choisissez l'orientation du navire: \n 1 - Gauche \n 2 - Haut \n 3 - Droite \n 4 - Bas")
+                inOrient = isIntinRange("",1,4)
+
+                if inOrient == 1 :
+                    extrX = pointeurX - (boatsSizes[i]-1)
+                    extrY = pointeurY
+
+                elif inOrient == 2 :
+                    extrX = pointeurX
+                    extrY = pointeurY - (boatsSizes[i]-1)
+
+                elif inOrient == 3 :
+                    extrX = pointeurX + (boatsSizes[i]-1)
+                    extrY = pointeurY
+                
+                else :
+                    extrX = pointeurX
+                    extrY = pointeurY + (boatsSizes[i]-1)
+
+                if not (extrX > 9 or extrY > 9) :
+                    for j in range(boatsSizes[i]) :
+                        dumpTest = []
+                        try:
+                            dumpTest[j] = girds[playerID][]
+
+                    
