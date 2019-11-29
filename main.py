@@ -30,13 +30,11 @@ def game():
     player = 0
     enemy = 1
     print("Joueur 1 : Placement des bateaux")
-    for boatSize, boatId in boats:
-        placeBoat(grids, 0)
+    placeBoat(grids, 0)
     
     clear()
     print("Joueur 2 : Placement des bateaux")
-    for boatSize, boatId in boats:
-        placeBoat(grids, 1)
+    placeBoat(grids, 1)
 
     clear()
 
