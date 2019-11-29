@@ -1,1 +1,1 @@
-__all__ = ["display", "shoot"]
+__all__ = ["display", "shoot","userInteractions"]
