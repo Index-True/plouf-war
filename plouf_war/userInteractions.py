@@ -1,3 +1,7 @@
+import copy
+from .display import displayScreen
+
+
 def askCell(text):
     """
     Fonction askCell, demande a l'utilisateur d'entrer une case, verifie les informations
@@ -23,56 +27,85 @@ def askCell(text):
     return line, col
 
 
-def isIntinRange(var, min, max):
-    testFor = True
-    while testFor:
-        while not isinstance(var, int):
-            try:
-                var = int(input("Entrez un entier comprit entre " +
-                                str(min) + " et " + str(max) + ": "))
-            except ValueError:
-                var = "notInt"
-        if var < max+1 and var > min-1 and var % 1 == 0:
-            testFor = False
-        else:
-            var = "notInt"
-    return var
+def ask(text, answers):
+    """
+    Fonction ask, permet de demander a l'utilisateur de choisir entre plusieurs possibilitées
+
+    text: Texte affiché à l'utilisateur lors de la demande
+    answers: réponses possibles
+
+    Return : la reponse fournie par l'utilisateur
+    """
+    answersStrings = [str(a) for a in answers]
+
+    answersDisplay = "("
+    for a in answers:
+        answersDisplay += f"{a} "
+    answersDisplay += ")"
+
+    userInput = input(f"{text} {answersDisplay} ")
+
+    while userInput not in answersStrings:
+        userInput = input(
+            f"Merci d'entrer une valeur parmis {answersDisplay} ")
+
+    return answers[answersStrings.index(userInput)]
 
 
-def placeBoat(girds, playerID):
+def placeBoat(grids, playerID):
 
-    testFor1 = False
-    boatsNames = ["Torpilleur", "Contre-torpilleur","Contre-torpilleur", "Croiseur", "Porte-Avion"]
-    boatsIDs = [20, 30, 31, 40, 50]
-    boatsSizes = [2, 3, 3, 4, 5]
-    extrX = 0
-    extrY = 0
+    boats = [
+        (5, 0, "Porte-Avion"),
+        (4, 0, "Croiseur"),
+        (3, 0, "Contre-torpilleur"),
+        (3, 1, "Contre-torpilleur"),
+        (2, 0, "Torpilleur"),
+    ]
 
-    for i in range(5):
-        dumpTest = []
-        while not testFor1:
-            pointeurY, pointeurX = askCell(
-                "Entez la case du coin superieur gauche du " + boatsNames[i] + "sous la forme \"A1\"")
+    for boatSize, boatId, boatName in boats:
+        boatPlaced = False
+        while not boatPlaced:
+            cell = askCell(
+                f"Ou placer le {boatName} ? (Nom de la cellule ex: A2)")
 
-            print("Choisissez l'orientation du navire: \n 1 - Horizontal \n 2 - Vertical")
-            inOrient = isIntinRange("", 1, 2)
+            orientation = ask("""Dans quelle orientation placer le bateau ?
+H : horizontal vers la droite
+H- : horizontal vers la gauche
+V : Vertical vers le haut
+V- : Vertical vers le bas""", ["H", "H-", "V", "V-"])
 
-            if inOrient == 1:
-                extrX = pointeurX + (boatsSizes[i]-1)
-                extrY = pointeurY
+            if orientation == "H" and cell[1] + boatSize < len(grids[playerID][0]):
+                cellsToCheck = [ (cell[0], i) for i in range(cell[1], cell[1] + boatSize) ]
+            
+            elif orientation == "H-" and 0 <= cell[1] - boatSize:
+                cellsToCheck = [ (cell[0], i) for i in range(cell[1] - boatSize,cell[1]) ]
 
-            elif inOrient == 2:
-                extrX = pointeurX
-                extrY = pointeurY + (boatsSizes[i]-1)
+            elif orientation == "V" and 0 <= cell[0] - boatSize :
+                cellsToCheck = [ (i, cell[0]) for i in range(cell[0] - boatSize,cell[0]) ]
 
-            if not (extrX > 9 or extrY > 9):
-                for j in range(boatsSizes[i]):
-                    dumpTest[j] = girds[playerID][(
-                        pointeurY+(pointeurY+(extrY)/j+1))][(pointeurX+(pointeurX+(extrX)/j+1))]
+            elif orientation == "V-" and cell[0] + boatSize < len(grids[playerID]):
+                cellsToCheck = [ (i, cell[0]) for i in range(cell[0],cell[0] + boatSize) ]
+                
+            checkFailed = False
 
-            if dumpTest == [0]*len(dumpTest):
-                testFor1 = True
-                for k in range(boatsSizes[i]):
-                    girds[playerID][pointeurY+(pointeurY+(extrY)/k+1)][pointeurX+(pointeurX+(extrX)/k+1)] = boatsIDs[i]
-            else:
-                print("Votre bateau ne peut pas être placé ici")
+            for c in cellsToCheck:
+                if grids[playerID][c[0]][c[1]] != 0:
+                    checkFailed = True
+                    break
+            
+            if not checkFailed:
+                tempGrids = copy.deepcopy(grids)
+
+                for c in cellsToCheck:
+                    tempGrids[playerID][c[0]][c[1]] = boatSize * 10 + boatId
+
+                displayScreen(tempGrids,playerID,True)
+
+                if ask("Valider ce placement ? ", ["Oui", "Non"]) == "Oui" :
+                    grids = tempGrids
+                    boatPlaced = True
+                
+
+
+                 
+            
