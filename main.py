@@ -64,4 +64,5 @@ def game():
 
         player, enemy = enemy, player
     print("Fin de partie")
-        
+    
+game()

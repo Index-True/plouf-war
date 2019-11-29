@@ -68,11 +68,11 @@ def placeBoat(girds, playerID):
             if not (extrX > 9 or extrY > 9):
                 for j in range(boatsSizes[i]):
                     dumpTest[j] = girds[playerID][(
-                        pointeurY+(pointeurY+(extrY)/j))][(pointeurX+(pointeurX+(extrX)/j))]
+                        pointeurY+(pointeurY+(extrY)/j+1))][(pointeurX+(pointeurX+(extrX)/j+1))]
 
             if dumpTest == [0]*len(dumpTest):
                 testFor1 = True
                 for k in range(boatsSizes[i]):
-                    girds[playerID][pointeurY+(pointeurY+(extrY)/k)][pointeurX+(pointeurX+(extrX)/k)] = boatsIDs[i]
+                    girds[playerID][pointeurY+(pointeurY+(extrY)/k+1)][pointeurX+(pointeurX+(extrX)/k+1)] = boatsIDs[i]
             else:
                 print("Votre bateau ne peut pas être placé ici")
