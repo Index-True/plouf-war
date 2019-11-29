@@ -26,15 +26,15 @@ pour acceder a la case B4 du joueur 1 on ecrit : grids[0][1][3]
                                                          
 """
 
-def game():
+def game(grids):
     player = 0
     enemy = 1
     print("Joueur 1 : Placement des bateaux")
-    userInteractions.placeBoat(grids, 0)
+    grids = userInteractions.placeBoat(grids, 0)
     
     clear()
     print("Joueur 2 : Placement des bateaux")
-    userInteractions.placeBoat(grids, 1)
+    grids = userInteractions.placeBoat(grids, 1)
 
     clear()
 
@@ -50,7 +50,8 @@ def game():
         display.displayScreen(grids, player, True)
         
         if shoot.shoot(player,grids):
-            break
+            clear()
+            return player
 
         clear()
         print("Ennemi :")
@@ -63,6 +64,5 @@ def game():
         clear()
 
         player, enemy = enemy, player
-    print("Fin de partie")
     
-game()
+print(f"Le joueur {game(grids)+1} a gagné")

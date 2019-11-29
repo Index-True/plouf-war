@@ -18,7 +18,7 @@ def askCell(text):
     userInput = input(text)
     userInput = userInput.upper()
 
-    while (not userInput[0] in tab) or (not userInput[1:].isdigit()) or (not 1 <= int(userInput[1:]) <= 10):
+    while len(userInput) < 2 or (not userInput[0] in tab) or (not userInput[1:].isdigit()) or (not 1 <= int(userInput[1:]) <= 10):
 
         userInput = input("Please enter values like A2 : ")
 
@@ -108,6 +108,7 @@ V- : Vertical vers le bas""", ["H", "H-", "V", "V-"])
                 if ask("Valider ce placement ? ", ["Oui", "Non"]) == "Oui" :
                     grids = tempGrids
                     boatPlaced = True
+    return grids
                 
 
 

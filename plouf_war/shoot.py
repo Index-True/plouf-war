@@ -1,3 +1,5 @@
+from .userInteractions import askCell
+
 def scan(playerId, grids):
     """
     # Description 
