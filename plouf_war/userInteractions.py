@@ -74,20 +74,23 @@ H : horizontal vers la droite
 H- : horizontal vers la gauche
 V : Vertical vers le haut
 V- : Vertical vers le bas""", ["H", "H-", "V", "V-"])
+            checkFailed = False
 
             if orientation == "H" and cell[1] + boatSize < len(grids[playerID][0]):
                 cellsToCheck = [ (cell[0], i) for i in range(cell[1], cell[1] + boatSize) ]
             
             elif orientation == "H-" and 0 <= cell[1] - boatSize:
-                cellsToCheck = [ (cell[0], i) for i in range(cell[1] - boatSize,cell[1]) ]
+                cellsToCheck = [ (cell[0], i+1) for i in range(cell[1] - boatSize,cell[1]) ]
 
             elif orientation == "V" and 0 <= cell[0] - boatSize :
-                cellsToCheck = [ (i, cell[0]) for i in range(cell[0] - boatSize,cell[0]) ]
+                cellsToCheck = [ (i+1, cell[1]) for i in range(cell[0] - boatSize,cell[0]) ]
 
             elif orientation == "V-" and cell[0] + boatSize < len(grids[playerID]):
-                cellsToCheck = [ (i, cell[0]) for i in range(cell[0],cell[0] + boatSize) ]
+                cellsToCheck = [ (i, cell[1]) for i in range(cell[0],cell[0] + boatSize) ]
+            else: 
+                cellsToCheck = []
+                checkFailed = True
                 
-            checkFailed = False
 
             for c in cellsToCheck:
                 if grids[playerID][c[0]][c[1]] != 0:
