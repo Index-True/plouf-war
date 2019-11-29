@@ -1,1 +1,1 @@
-__all__ = ["display.displayScreen", "shoot.shoot"]
+__all__ = ["display", "shoot"]
