@@ -13,8 +13,10 @@ def displayScreen(grid,playerID,mode) :
         disOut = [" ∙ "," o ","▒▒▒","▒▒▒","███","███","███","███","███"]
     else :
         disOut = [" ∙ "," o ","▒▒▒"," x "," ∙ "," ∙ "," ∙ "," ∙ "," ∙ "]
+
+    print("    A  B  C  D  E  F  G  H  I  J")
     for i in range(10):
-        ln = ""
+        ln = f"{i+1}".ljust(3," ")
         for j in range(10):
             l = 0
             for k in disIn:
